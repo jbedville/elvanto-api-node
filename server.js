@@ -10,8 +10,8 @@ app.use(cors())
 //API CALLS
     app.get("/api/service", async (req, res) => {
         try {
-            
-            // console.log(serviceArr)
+            const response = client.apiCall("v1/services/getAll.json", {});
+            serviceArr = response.services.service.slice(0, 5).map((s) => s.id);
             res.json(serviceArr)
         } catch (error) {
             console.error("Error fetching services:", error);
