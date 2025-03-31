@@ -10,7 +10,9 @@
     "nodejs"
   ],
   "dependencies": {
+    "cors": "^2.8.5",
     "elvanto-api": "^1.1.0",
+    "express": "^4.21.2",
     "https": "*",
     "querystring": "*",
     "urllib-sync": "*"
