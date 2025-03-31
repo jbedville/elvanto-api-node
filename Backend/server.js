@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 
 let serviceArr = [];
-let locationObject
+let locationObject 
 
 const getId = async () => {
   const response = await client.apiCall("v1/services/getAll.json", {});
@@ -20,8 +20,8 @@ const locationDetails = async (locationId) => {
     console.error("No locationId provided");
     return;
   }
-  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId});
-  locationObject = response.service[0];
+  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["songs"]});
+  locationObject = response.service[0, 1, 2, 3];
 };
 
 const initServices = async () => {
