@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const client = require("./lib/client.js");
-// const service = require("./serviceArr.js");
-// const {serviceArr, locationName, getServiceId, locationId} = require('./serviceArr.js')
 
 const app = express();
 app.use(cors());
@@ -20,13 +18,16 @@ const locationDetails = async (locationId) => {
     console.error("No locationId provided");
     return;
   }
-  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["songs"]});
-  locationObject = response.service[0, 1, 2, 3];
+  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["volunteers"]});
+  locationObject = response.service;
 };
+
+
 
 const initServices = async () => {
     await getId();
-    console.log("Service IDs: ", serviceArr)
+    // console.log("Service IDs: ", serviceArr)
+    // console.log(locationObject)
 }
 
 app.get("/api/service", async (req, res) => {
@@ -106,7 +107,8 @@ app.get("/details/Warner530", async (req, res) => {
 
 const PORT = 8000;
 initServices().then(() => {
-    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+  console.log("Services Initialized")  
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }).catch((error) => {
     console.error("Failied to Init Services:", error)
 });
