@@ -1,3 +1,22 @@
+class VolunteerGroup {
+    constructor(locationName, volunteers) {
+        this.locationName = locationName
+        this.volunteers = volunteers
+    }
+
+    printVolunteers() {
+        console.log(`<---- ${this.locationName.toUpperCase()} ---->`)
+        this.volunteers.forEach(position => {
+            position.volunteers.forEach(v => {
+                console.log(`${position.position_name}: ${v.firstname} ${v.lastname}`)
+            })
+        })
+        console.log("")
+    }
+}
+
+
+
 async function fetchData() {
     try {
         const [morayfield830, warner930, redcliffe930, morayfield1030, warner530] = await Promise.all([
@@ -18,31 +37,30 @@ async function fetchData() {
         //         });
         // });
 
-        const getVolunteers = (x) => {
-            const volunteers = x[0].volunteers.plan[0].positions.position.slice(2, 15) || [];
-        
-            volunteers.forEach(position => {
-                position.volunteers?.volunteer?.forEach(v => {
-                console.log(`${position.position_name}: ${v.person.firstname} ${v.person.lastname}`);
-                });
-            });
-        }
-        
-        console.log("<----MORAYFIELD 8:30---->")
-        getVolunteers(morayfield830)
-        console.log("")
-        console.log("<----WARNER 9:30---->")
-        getVolunteers(warner930)
-        console.log("")
-        console.log("<----REDCLIFFE 9:30---->")
-        getVolunteers(redcliffe930)
-        console.log("")
-        console.log("<----MORAYFIELD 10:30---->")
-        getVolunteers(morayfield1030)
-        console.log("")
-        console.log("<----WARNER 5:30---->")
-        getVolunteers(warner530)
-        
+        const getVolunteers = (service, locationName) => {
+            const volunteers = service[0].volunteers.plan[0].positions.position.slice(2, 15) || [];
+            const formattedVolunteers = volunteers.map(position => ({
+                position_name: position.position_name,
+                volunteers: position.volunteers?.volunteer?.map(v =>({
+                    firstname: v.person.firstname,
+                    lastname: v.person.lastname
+                })) || []
+        }))
+        return new VolunteerGroup(locationName, formattedVolunteers)
+    } 
+
+    const m1Group = getVolunteers(morayfield830, "Morayfield 8:30")
+    const w1Group = getVolunteers(morayfield830, "Warner 9:30")
+    const r1Group = getVolunteers(morayfield830, "Redcliffe 9:30")
+    const m2Group = getVolunteers(morayfield830, "Morayfield 10:30")
+    const w2Group = getVolunteers(morayfield830, "Warner 5:30")
+
+    m1Group.printVolunteers()
+    w1Group.printVolunteers()
+    r1Group.printVolunteers()
+    m2Group.printVolunteers()
+    w2Group.printVolunteers()
+
     } catch (error) {
         console.error("Oopsie Error:", error)
     }
