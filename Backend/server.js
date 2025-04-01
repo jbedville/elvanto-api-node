@@ -18,7 +18,7 @@ const locationDetails = async (locationId) => {
     console.error("No locationId provided");
     return;
   }
-  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["volunteers"]});
+  const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["volunteers", "songs"]});
   locationObject = response.service;
 };
 

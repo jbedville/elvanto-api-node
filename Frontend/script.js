@@ -8,11 +8,11 @@ async function fetchData() {
             fetch("http://localhost:8000/details/Warner530").then(response => response.json())
         ])
         console.log("Test Response: ", warner930)
-        // console.log(JSON.stringify(warner930, null, 2))
-        // console.log(warner930[0].volunteers.plan[0].positions.position[5].volunteers.volunteer[0].person.firstname)
-        const volunteers = warner930[0].volunteers.plan[0].positions.position || [];
+
+        const volunteers = warner930[0].volunteers.plan[0].positions.position.slice(2, 15) || [];
 
         volunteers.forEach(position => {
+            console.log(`${position.position_name}`)
             position.volunteers?.volunteer?.forEach(v => {
             console.log(`${v.person.firstname} ${v.person.lastname}`);
         });
