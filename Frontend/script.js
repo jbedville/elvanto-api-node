@@ -1,11 +1,15 @@
+let m1Group, w1Group, r1Group, m2Group, w2Group
+let date
+
 class VolunteerGroup {
-    constructor(locationName, volunteers) {
+    constructor(locationName, date, volunteers) {
         this.locationName = locationName
+        this.date = date
         this.volunteers = volunteers
     }
 
     printVolunteers() {
-        console.log(`<---- ${this.locationName.toUpperCase()} ---->`)
+        console.log(`<---- ${this.locationName.toUpperCase()} ${this.date}---->`)
         this.volunteers.forEach(position => {
             position.volunteers.forEach(v => {
                 console.log(`${position.position_name}: ${v.firstname} ${v.lastname}`)
@@ -14,7 +18,6 @@ class VolunteerGroup {
         console.log("")
     }
 }
-
 
 
 async function fetchData() {
@@ -28,38 +31,48 @@ async function fetchData() {
         ])
         console.log("Test Response: ", warner930)
 
-        
-
-        //         volunteers.forEach(position => {
-        //             console.log(`${position.position_name}`)
-        //             position.volunteers?.volunteer?.forEach(v => {
-        //             console.log(`${v.person.firstname} ${v.person.lastname}`);
-        //         });
-        // });
+        const getDate = (apiDate) => {
+            const longDate = new Date(apiDate.replace(" ", "T"))
+            const options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: "true",
+                timeZone: "Australia/Brisbane"
+            }
+            console.log(apiDate)
+            return longDate.toLocaleString("en-AU", options)
+        }
 
         const getVolunteers = (service, locationName) => {
-            const volunteers = service[0].volunteers.plan[0].positions.position.slice(2, 15) || [];
+            const volunteers = service[0].volunteers.plan[0].positions.position.slice(3, 16) || [];
             const formattedVolunteers = volunteers.map(position => ({
                 position_name: position.position_name,
                 volunteers: position.volunteers?.volunteer?.map(v =>({
                     firstname: v.person.firstname,
-                    lastname: v.person.lastname
+                    lastname: v.person.lastname,
+                    status: v.status
                 })) || []
         }))
-        return new VolunteerGroup(locationName, formattedVolunteers)
+        const date = getDate(service[0].date)
+
+        return new VolunteerGroup(locationName, date, formattedVolunteers)
     } 
 
-    const m1Group = getVolunteers(morayfield830, "Morayfield 8:30")
-    const w1Group = getVolunteers(morayfield830, "Warner 9:30")
-    const r1Group = getVolunteers(morayfield830, "Redcliffe 9:30")
-    const m2Group = getVolunteers(morayfield830, "Morayfield 10:30")
-    const w2Group = getVolunteers(morayfield830, "Warner 5:30")
+    m1Group = getVolunteers(morayfield830, "Morayfield 8:30")
+    w1Group = getVolunteers(warner930, "Warner 9:30")
+    r1Group = getVolunteers(redcliffe930, "Redcliffe 9:30")
+    m2Group = getVolunteers(morayfield1030, "Morayfield 10:30")
+    w2Group = getVolunteers(warner530, "Warner 5:30")
 
-    m1Group.printVolunteers()
-    w1Group.printVolunteers()
-    r1Group.printVolunteers()
-    m2Group.printVolunteers()
-    w2Group.printVolunteers()
+    // m1Group.printVolunteers()
+    // w1Group.printVolunteers()
+    // r1Group.printVolunteers()
+    // m2Group.printVolunteers()
+    // w2Group.printVolunteers()
 
     } catch (error) {
         console.error("Oopsie Error:", error)
@@ -67,5 +80,11 @@ async function fetchData() {
 }
 
 fetchData()
+
+setTimeout(() => {
+    console.log(w1Group)
+    console.log(m1Group.volunteers[0])
+}, 3000)
+
 
 
