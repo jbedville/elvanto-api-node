@@ -1,11 +1,12 @@
 let m1Group, w1Group, r1Group, m2Group, w2Group
 let date
 
-class VolunteerGroup {
-    constructor(locationName, date, volunteers) {
+class ServiceGroup {
+    constructor(locationName, date, volunteers, songs) {
         this.locationName = locationName
         this.date = date
         this.volunteers = volunteers
+        this.songs = songs
     }
 
     printVolunteers() {
@@ -29,7 +30,7 @@ async function fetchData() {
             fetch("http://localhost:8000/details/Morayfield1030").then(response => response.json()),
             fetch("http://localhost:8000/details/Warner530").then(response => response.json())
         ])
-        console.log("Test Response: ", warner930)
+        // console.log("Test Response: ", warner930) TEST TEST TEST
 
         const getDate = (apiDate) => {
             const longDate = new Date(apiDate.replace(" ", "T"))
@@ -43,7 +44,6 @@ async function fetchData() {
                 hour12: "true",
                 timeZone: "Australia/Brisbane"
             }
-            console.log(apiDate)
             return longDate.toLocaleString("en-AU", options)
         }
 
@@ -58,8 +58,11 @@ async function fetchData() {
                 })) || []
         }))
         const date = getDate(service[0].date)
+        const songs = service[0].songs.song?.map(s => ({
+            title: s.title
+        })) || "No Songs"
 
-        return new VolunteerGroup(locationName, date, formattedVolunteers)
+        return new ServiceGroup(locationName, date, formattedVolunteers, songs)
     } 
 
     m1Group = getVolunteers(morayfield830, "Morayfield 8:30")
@@ -67,7 +70,7 @@ async function fetchData() {
     r1Group = getVolunteers(redcliffe930, "Redcliffe 9:30")
     m2Group = getVolunteers(morayfield1030, "Morayfield 10:30")
     w2Group = getVolunteers(warner530, "Warner 5:30")
-
+ 
     // m1Group.printVolunteers()
     // w1Group.printVolunteers()
     // r1Group.printVolunteers()
@@ -79,12 +82,14 @@ async function fetchData() {
     }
 }
 
-fetchData()
+async function main() {
+    await fetchData();
+    console.log(m1Group)
+}
 
-setTimeout(() => {
-    console.log(w1Group)
-    console.log(m1Group.volunteers[0])
-}, 3000)
+main()
 
-
-
+export async function getServiceGroups() {
+    await fetchData();
+    return { m1Group, w1Group, r1Group, m2Group, w2Group }
+}
