@@ -1,8 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   max-width: 1380px;
   margin: 0 auto;
   padding: 2rem;
   text-align: left;
+}
+
+.service-container {
+  display: flex;
 }
 
 .volunteers {
@@ -13,13 +21,10 @@
 }
 
 .volunteers li {
-  background-color: #333333;
-  border-radius: 15px;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-}
-
-.volunteers li {
+  /* background-color: #333333; */
+  /* border-radius: 15px; */
+  margin-bottom: 1.5rem;
+  /* padding: 0.5rem; */
   white-space: nowrap;
 }
 
@@ -39,12 +44,16 @@
   border-radius: 15px;
 }
 
-.service-container {
-  display: flex;
-}
-
-/* .position-name {
-  background-color: blue;
+.position-name {
+  background-color: #414141;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-} */
+  padding: 0.7rem;
+}
+
+.volunteer-name {
+  background-color: #353535;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 0.7rem;
+}

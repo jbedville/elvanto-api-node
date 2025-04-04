@@ -10,11 +10,15 @@
     "nodejs"
   ],
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "elvanto-api": "^1.1.0",
     "express": "^4.21.2",
     "https": "*",
+    "jsonwebtoken": "^9.0.2",
     "querystring": "*",
     "urllib-sync": "*"
   },
@@ -22,5 +26,9 @@
     "node": ">=0.11.13"
   },
   "author": "Elvanto",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "typescript": "^5.8.2"
+  }
 }
