@@ -15,7 +15,12 @@ function Service({ service }) {
                     position.position_name === "Backing Vocals"
                         ? position.volunteers.map((v, i) => (
                             <li key={`$index} ${i}`}>
-                                {position.position_name}: {v.firstname} {v.lastname} {getStatusIcon(v.status)}
+                                <span className="position-name">
+                                    {position.position_name}:
+                                </span>
+                                <span className='volunteer-name'>
+                                    {v.firstname} {v.lastname} {getStatusIcon(v.status)}
+                                </span>
                             </li>
                         ))
                 
