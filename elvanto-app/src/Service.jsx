@@ -43,7 +43,7 @@ function Service({ service }) {
                 {Array.isArray(service.songs) && service.songs.length > 0 ? (
                     service.songs.map((s, index) => (
                         <li key={index}>
-                            {index + 1}. {s.title}
+                            {index + 1}. {s.title} - {s.key}
                         </li>
                     ))
                 ) : (
@@ -59,11 +59,11 @@ function Service({ service }) {
 function getStatusIcon(status) {
     switch (status) {
         case "Confirmed":
-            return <CheckCircle color="green" size={16} />;
+            return <CheckCircle color="green" size={16} className='status-icon'/>;
         case "Unconfirmed":
-            return <AlertCircle color="orange" size={16} />;
+            return <AlertCircle color="orange" size={16} className='status-icon'/>;
         case "Declined":
-            return <XCircle color="red" size={16} />
+            return <XCircle color="red" size={16} className='status-icon'/>
         default:
             return null;
     }

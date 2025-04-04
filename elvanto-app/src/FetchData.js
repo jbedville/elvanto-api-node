@@ -59,7 +59,8 @@ async function fetchData() {
         }))
         const date = getDate(service[0].date)
         const songs = service[0].songs.song?.map(s => ({
-            title: s.title
+            title: s.title,
+            key: s.arrangement.key
         })) || "No Songs"
 
         return new ServiceGroup(locationName, date, formattedVolunteers, songs)

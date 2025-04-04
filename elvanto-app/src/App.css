@@ -9,6 +9,26 @@
   text-align: left;
 }
 
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-circle {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .service-container {
   display: flex;
 }
@@ -21,10 +41,7 @@
 }
 
 .volunteers li {
-  /* background-color: #333333; */
-  /* border-radius: 15px; */
   margin-bottom: 1.5rem;
-  /* padding: 0.5rem; */
   white-space: nowrap;
 }
 
@@ -56,4 +73,8 @@
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   padding: 0.7rem;
+}
+
+.status-icon {
+  margin-bottom: -2.5px;
 }

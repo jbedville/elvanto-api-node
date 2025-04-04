@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
-    const [email, setEmail] = useState('');
+function Login( onLogin) {
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
         try {
@@ -11,7 +13,7 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ userName, password })
             });
             
         if (!res.ok) {
@@ -21,6 +23,8 @@ function Login() {
 
         const data = await res.json();
         localStorage.setItem('token', data.token);
+        onLogin();
+        navigate('/services')
         alert('Logged in!');
         } catch (err) {
             alert('Login failed: ', err.message)
@@ -29,9 +33,11 @@ function Login() {
 
     return (
         <div>
-            <input placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
+            <input placeholder='Username' value={userName} onChange={e => setUserName(e.target.value)} />
             <input placeholder='Password' type="password" value={password} onChange={e => setPassword(e.target.value)} />
             <button onClick={handleLogin}>Login</button>
         </div>
     )
 }
+
+export default Login
