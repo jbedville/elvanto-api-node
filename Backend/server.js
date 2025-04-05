@@ -1,3 +1,7 @@
+//!TEST
+console.log("🔥 Starting server.js...");
+//!TEST
+
 const express = require("express");
 const cors = require("cors");
 const client = require("./lib/client.js");
@@ -139,7 +143,7 @@ app.get("/details/Warner530", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5805;
+
 
 // initServices().then(() => {
 //   console.log("Services Initialized")  
@@ -150,11 +154,20 @@ const PORT = process.env.PORT || 5805;
 
 //! TESTING
 
-app.get("/", (req, res) => {
-  res.send("🎉 Backend is working!");
-});
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+try {
+  const PORT = process.env.PORT || 5805;
+
+  app.get("/", (req, res) => {
+    res.send("🎉 Backend is working!");
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+} catch (err) {
+  console.log("Fatal startup error:", err)
+}
+
 
