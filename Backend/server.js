@@ -137,7 +137,7 @@ app.get("/details/Warner530", async (req, res) => {
   }
 });
 
-
+const PORT = process.env.PORT || 8080;
 
 initServices().then(() => {
   console.log("Services Initialized")  
@@ -145,21 +145,4 @@ initServices().then(() => {
 }).catch((error) => {
     console.error("Failied to Init Services:", error)
 });
-
-//! TESTING
-
-try {
-  const PORT = process.env.PORT || 8080;
-
-  app.get("/", (req, res) => {
-    res.send("🎉 Backend is working!");
-  });
-
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-} catch (err) {
-  console.log("Fatal startup error:", err)
-}
-
 
