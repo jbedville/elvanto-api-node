@@ -1,3 +1,5 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 let m1Group, w1Group, r1Group, m2Group, w2Group
 let date
 
@@ -24,11 +26,11 @@ class ServiceGroup {
 async function fetchData() {
     try {
         const [morayfield830, warner930, redcliffe930, morayfield1030, warner530] = await Promise.all([
-            fetch("http://localhost:8000/details/Morayfield830").then(response => response.json()),
-            fetch("http://localhost:8000/details/Warner930").then(response => response.json()),
-            fetch("http://localhost:8000/details/Redcliffe930").then(response => response.json()),
-            fetch("http://localhost:8000/details/Morayfield1030").then(response => response.json()),
-            fetch("http://localhost:8000/details/Warner530").then(response => response.json())
+            fetch(`${apiUrl}/details/Morayfield830`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Warner930`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Redcliffe930`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Morayfield1030`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Warner530`).then(response => response.json())
         ])
         // console.log("Test Response: ", warner930) TEST TEST TEST
 

@@ -5,7 +5,10 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  
+  background-color: #13111c;
+  background-image: radial-gradient(#2c2c3c 1px, transparent 1px);
+  background-size: 20px 20px; /* distance between dots */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

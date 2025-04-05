@@ -3,7 +3,7 @@
 }
 
 #root {
-  max-width: 1380px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
   text-align: left;
@@ -14,6 +14,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #181623;
+  border: 1px solid #34323f;
+  padding: 2rem 3rem 1rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 15px #0000005c;
 }
 
 .loader-circle {
@@ -31,7 +36,9 @@
 
 .service-container {
   display: flex;
+  /* justify-content: center; */
 }
+
 
 .volunteers {
   list-style: none;
@@ -43,25 +50,34 @@
 .volunteers li {
   margin-bottom: 1.5rem;
   white-space: nowrap;
+  background-color: #1c1a28;
+  outline: 1px solid #211f2d;
+  padding: 0.7rem;
+  border-radius: 5px;
 }
 
 .songs {
   list-style: none;
   margin: 0;
   line-height: 1.7rem;
-  background-color: #333333;
-  padding: 0.5rem;
-  border-radius: 15px;
+  background-color: #1c1a28;
+  outline: 1px solid #211f2d;
+  padding: 0.7rem;
+  border-radius: 5px;
 }
 
 .service-module {
-  background-color: #2b2b2b;
+  background-color: #181623;
+  border: 1px solid #34323f;
   padding: 1.5rem;
   margin: 0 1rem;
   border-radius: 15px;
+  box-shadow: 0 10px 15px #0000005c;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.position-name {
+/* .position-name {
   background-color: #414141;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -72,7 +88,7 @@
   background-color: #353535;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  padding: 0.7rem;
+  padding: 0.7rem; */
 }
 
 .status-icon {

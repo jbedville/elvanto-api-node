@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require ('bcrypt')
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 app.use(express.json())
 
 //! LOGIN 
@@ -135,11 +137,11 @@ app.get("/details/Warner530", async (req, res) => {
   }
 });
 
-const PORT = 8000;
-initServices().then(() => {
-  console.log("Services Initialized")  
-  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-}).catch((error) => {
-    console.error("Failied to Init Services:", error)
-});
+// const PORT = 8000;
+// initServices().then(() => {
+//   console.log("Services Initialized")  
+//   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+// }).catch((error) => {
+//     console.error("Failied to Init Services:", error)
+// });
 

@@ -72,32 +72,3 @@ if (!services) return <p>Loading...</p>
 
 export default App
 
-
-//! TESTING
-
-"songs": {
-				"song": [
-					{
-						"id": "86119758-cb53-4999-91df-6e8ce327a554",
-						"ccli_number": "7214412",
-						"title": "Fall Like Rain",
-						"artist": "Beau Maddox, Bede Benjamin-Korporaal, Brett Younker, Zahriya Zachary",
-						"album": "",
-						"arrangement": {
-							"id": "0eed03fa-4ef2-426f-9411-562339db4370",
-							"title": "Standard Arrangement",
-							"bpm": "0",
-							"duration": "00:00",
-							"sequence": [
-								"Verse 1",
-								"Chorus 1",
-								"Verse 2",
-								"Misc 1"
-							],
-							"key_id": "80961678-2446-4868-aad2-3ae1e06f9cac",
-							"key_name": "Male Key",
-							"key": "A"
-						}
-					}
-				]
-			}

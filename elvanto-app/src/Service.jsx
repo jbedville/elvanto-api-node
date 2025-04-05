@@ -16,7 +16,7 @@ function Service({ service }) {
                         ? position.volunteers.map((v, i) => (
                             <li key={`$index} ${i}`}>
                                 <span className="position-name">
-                                    {position.position_name}:
+                                    {position.position_name}:{" "}
                                 </span>
                                 <span className='volunteer-name'>
                                     {v.firstname} {v.lastname} {getStatusIcon(v.status)}
@@ -27,7 +27,7 @@ function Service({ service }) {
                 : (
                     <li key={index}>
                         <span className='position-name'>
-                            {position.position_name}:  
+                            {position.position_name}:{" "}  
                         </span>
                         {position.volunteers.map((v, i) => (
                             <span className='volunteer-name' key={`${index}-${i}`}>
