@@ -58,16 +58,16 @@ async function fetchData() {
 
     try {
         const [morayfield830, warner930, redcliffe930, morayfield1030, warner530] = await Promise.all([
-            // fetch(`${apiUrl}/details/Morayfield830`).then(response => response.json()),
-            // fetch(`${apiUrl}/details/Warner930`).then(response => response.json()),
-            // fetch(`${apiUrl}/details/Redcliffe930`).then(response => response.json()),
-            // fetch(`${apiUrl}/details/Morayfield1030`).then(response => response.json()),
-            // fetch(`${apiUrl}/details/Warner530`).then(response => response.json())
-            fetch(`http://localhost:8000/details/Morayfield830`).then(response => response.json()),
-            fetch(`http://localhost:8000/details/Warner930`).then(response => response.json()),
-            fetch(`http://localhost:8000/details/Redcliffe930`).then(response => response.json()),
-            fetch(`http://localhost:8000/details/Morayfield1030`).then(response => response.json()),
-            fetch(`http://localhost:8000/details/Warner530`).then(response => response.json())
+            fetch(`${apiUrl}/details/Morayfield830`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Warner930`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Redcliffe930`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Morayfield1030`).then(response => response.json()),
+            fetch(`${apiUrl}/details/Warner530`).then(response => response.json())
+            // fetch(`http://localhost:8000/details/Morayfield830`).then(response => response.json()),
+            // fetch(`http://localhost:8000/details/Warner930`).then(response => response.json()),
+            // fetch(`http://localhost:8000/details/Redcliffe930`).then(response => response.json()),
+            // fetch(`http://localhost:8000/details/Morayfield1030`).then(response => response.json()),
+            // fetch(`http://localhost:8000/details/Warner530`).then(response => response.json())
         ])
 
         const getDate = (apiDate) => {
