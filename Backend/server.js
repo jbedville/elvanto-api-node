@@ -137,8 +137,8 @@ app.get("/details/Warner530", async (req, res) => {
   }
 });
 
-// const PORT = process.env.PORT || 8080;
-const PORT = 8000
+const PORT = process.env.PORT || 8080;
+// const PORT = 8000
 
 initServices().then(() => {
   console.log("Services Initialized")  
