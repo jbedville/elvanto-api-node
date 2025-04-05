@@ -2,6 +2,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 let m1Group, w1Group, r1Group, m2Group, w2Group
 let date
+const CACHE_KEY = "serviceCache"
 
 class ServiceGroup {
     constructor(locationName, date, volunteers, songs) {
@@ -10,29 +11,64 @@ class ServiceGroup {
         this.volunteers = volunteers
         this.songs = songs
     }
-
-    printVolunteers() {
-        console.log(`<---- ${this.locationName.toUpperCase()} ${this.date}---->`)
-        this.volunteers.forEach(position => {
-            position.volunteers.forEach(v => {
-                console.log(`${position.position_name}: ${v.firstname} ${v.lastname}`)
-            })
-        })
-        console.log("")
-    }
 }
 
+//! GET EXPIRY DAY (MONDAY 4AM)
+function getNextMonday() {
+    const now = new Date();
+    const result = new Date(now);
 
+    const day = now.getDay();
+    const daysUntilMonday = (8 - day) % 7;
+    result.setDate(now.getDate() + daysUntilMonday);
+
+    result.setHours(4, 0, 0, 0)
+
+    return result.getTime()
+}
+
+//! Function to Fetch the data from the backend server
 async function fetchData() {
+    const rebuild = (obj) => 
+        obj ?
+        new ServiceGroup(obj.locationName, obj.date, obj.volunteers, obj.songs)
+        : undefined
+     
+
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+        try{
+            const { expires, data } = JSON.parse(cached)
+            if (Date.now() < expires) {
+            console.log('Loaded from cache')
+            
+            m1Group = rebuild(data.m1Group);
+            w1Group = rebuild(data.w1Group);
+            r1Group = rebuild(data.r1Group);
+            m2Group = rebuild(data.m2Group);
+            w2Group = rebuild(data.w2Group);
+
+            return
+            }
+        } catch (error) {
+            console.error('Cache parse error, clearing cache', error)
+            localStorage.removeItem(CACHE_KEY)
+    }
+} else
+
     try {
         const [morayfield830, warner930, redcliffe930, morayfield1030, warner530] = await Promise.all([
-            fetch(`${apiUrl}/details/Morayfield830`).then(response => response.json()),
-            fetch(`${apiUrl}/details/Warner930`).then(response => response.json()),
-            fetch(`${apiUrl}/details/Redcliffe930`).then(response => response.json()),
-            fetch(`${apiUrl}/details/Morayfield1030`).then(response => response.json()),
-            fetch(`${apiUrl}/details/Warner530`).then(response => response.json())
+            // fetch(`${apiUrl}/details/Morayfield830`).then(response => response.json()),
+            // fetch(`${apiUrl}/details/Warner930`).then(response => response.json()),
+            // fetch(`${apiUrl}/details/Redcliffe930`).then(response => response.json()),
+            // fetch(`${apiUrl}/details/Morayfield1030`).then(response => response.json()),
+            // fetch(`${apiUrl}/details/Warner530`).then(response => response.json())
+            fetch(`http://localhost:8000/details/Morayfield830`).then(response => response.json()),
+            fetch(`http://localhost:8000/details/Warner930`).then(response => response.json()),
+            fetch(`http://localhost:8000/details/Redcliffe930`).then(response => response.json()),
+            fetch(`http://localhost:8000/details/Morayfield1030`).then(response => response.json()),
+            fetch(`http://localhost:8000/details/Warner530`).then(response => response.json())
         ])
-        // console.log("Test Response: ", warner930) TEST TEST TEST
 
         const getDate = (apiDate) => {
             const longDate = new Date(apiDate.replace(" ", "T"))
@@ -74,11 +110,20 @@ async function fetchData() {
     m2Group = getVolunteers(morayfield1030, "Morayfield 10:30")
     w2Group = getVolunteers(warner530, "Warner 5:30")
  
-    // m1Group.printVolunteers()
-    // w1Group.printVolunteers()
-    // r1Group.printVolunteers()
-    // m2Group.printVolunteers()
-    // w2Group.printVolunteers()
+    const data = {
+        m1Group: {...m1Group},
+        w1Group: {...w1Group},
+        r1Group: {...r1Group},
+        m2Group: {...m2Group},
+        w2Group: {...w2Group}
+    }
+    
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+        expires: getNextMonday(),
+        data
+    }))
+
+    console.log('Fetched from API and cached')
 
     } catch (error) {
         console.error("Oopsie Error:", error)
