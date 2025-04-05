@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require ('bcrypt')
 
 const app = express();
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
 app.use(cors());
 app.use(express.json())
 
