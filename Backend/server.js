@@ -14,28 +14,28 @@ app.use(express.json())
 
 //! LOGIN 
 
-const jwtSecret = process.env.JWT_SECRET
+// const jwtSecret = process.env.JWT_SECRET
 
-const users = []
+// const users = []
 
-app.post('/register', async (req, res) => {
-    const { userName, password } = req.body;
-    const hashed = await bcrypt.hash(password, 10)
-    users.push({ userName, password: hashed})
-    res.send({ message: 'User Registered'})
-})
+// app.post('/register', async (req, res) => {
+//     const { userName, password } = req.body;
+//     const hashed = await bcrypt.hash(password, 10)
+//     users.push({ userName, password: hashed})
+//     res.send({ message: 'User Registered'})
+// })
 
-app.post('/login', async (req, res) => {
-    const { userName, password } = req.body;
-    const user = users.find(u => u.userName === userName);
-    if (!user) return res.status(401).send({ error:'User not found' })
+// app.post('/login', async (req, res) => {
+//     const { userName, password } = req.body;
+//     const user = users.find(u => u.userName === userName);
+//     if (!user) return res.status(401).send({ error:'User not found' })
 
-    const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.status(401).send({ error:"Invalid password" })
+//     const valid = await bcrypt.compare(password, user.password);
+//     if (!valid) return res.status(401).send({ error:"Invalid password" })
 
-    const token = jwt.sign({ userName }, jwtSecret, { expiresIn: '1h' })
-    res.send({token})
-})
+//     const token = jwt.sign({ userName }, jwtSecret, { expiresIn: '1h' })
+//     res.send({token})
+// })
 
 //! SERVICES API 
 
@@ -147,6 +147,12 @@ const PORT = process.env.PORT || 5805;
 // }).catch((error) => {
 //     console.error("Failied to Init Services:", error)
 // });
+
+//! TESTING
+
+app.get("/", (req, res) => {
+  res.send("🎉 Backend is working!");
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
