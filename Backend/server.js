@@ -137,11 +137,11 @@ app.get("/details/Warner530", async (req, res) => {
   }
 });
 
-// const PORT = 8000;
-// initServices().then(() => {
-//   console.log("Services Initialized")  
-//   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-// }).catch((error) => {
-//     console.error("Failied to Init Services:", error)
-// });
+const PORT = 8000;
+initServices().then(() => {
+  console.log("Services Initialized")  
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}).catch((error) => {
+    console.error("Failied to Init Services:", error)
+});
 
