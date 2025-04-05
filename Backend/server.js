@@ -1,7 +1,3 @@
-//!TEST
-console.log("🔥 Starting server.js...");
-//!TEST
-
 const express = require("express");
 const cors = require("cors");
 const client = require("./lib/client.js");
@@ -59,8 +55,6 @@ const locationDetails = async (locationId) => {
   const response = await client.apiCall("v1/services/getInfo.json", {id: locationId, fields: ["volunteers", "songs"]});
   locationObject = response.service;
 };
-
-
 
 const initServices = async () => {
     await getId();
@@ -154,10 +148,8 @@ initServices().then(() => {
 
 //! TESTING
 
-
-
 try {
-  const PORT = process.env.PORT || 5805;
+  const PORT = process.env.PORT || 8080;
 
   app.get("/", (req, res) => {
     res.send("🎉 Backend is working!");
