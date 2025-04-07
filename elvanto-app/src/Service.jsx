@@ -55,7 +55,6 @@ function Service({ service }) {
     )
 }
 
-
 function getStatusIcon(status) {
     switch (status) {
         case "Confirmed":
@@ -68,5 +67,69 @@ function getStatusIcon(status) {
             return null;
     }
 }
+
+// function Service({ service }) {
+//     // useEffect(() => {
+//     //     async function fetchData() {
+//     //         const data = await getServiceGroups();
+//     //         console.log(data); // Inspect the data structure
+//     //     }
+//     //     fetchData();
+//     // }, []);
+    
+//     if (!service) {
+//         return <div>No service data available</div>;
+//     }
+
+//     return (
+//         <div className="service-module">
+//             <h2>{service.locationName || "Unknown Location"}</h2>
+//             <h3>Volunteers</h3>
+//             <ul className="volunteers">
+//                 {service.volunteers.map((position, index) => 
+//                     position.position_name === "Backing Vocals"
+//                         ? position.volunteers.map((v, i) => (
+//                             <li key={`${index}-${i}`}>
+//                                 <span className="position-name">
+//                                     {position.position_name}:{" "}
+//                                 </span>
+//                                 <span className='volunteer-name'>
+//                                     {v.firstname} {v.lastname} {getStatusIcon(v.status)}
+//                                 </span>
+//                             </li>
+//                         ))
+//                         : (
+//                             <li key={index}>
+//                                 <span className='position-name'>
+//                                     {position.position_name}:{" "}  
+//                                 </span>
+//                                 {position.volunteers.map((v, i) => (
+//                                     <span className='volunteer-name' key={`${index}-${i}`}>
+//                                         {v.firstname} {v.lastname} {getStatusIcon(v.status)}
+//                                         {i < position.volunteers.length - 1 && ", "}
+//                                     </span>
+//                                 ))}
+//                             </li>
+//                         )
+//                 )}
+//             </ul>
+//             <h3>Songs</h3>
+//             <ul className="songs">
+//                 {Array.isArray(service.songs) && service.songs.length > 0 ? (
+//                     service.songs.map((s, index) => (
+//                         <li key={index}>
+//                             {index + 1}. {s.title} - {s.key}
+//                         </li>
+//                     ))
+//                 ) : (
+//                     <li>No songs available</li>
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// }
+
+
+
 
 export default Service
