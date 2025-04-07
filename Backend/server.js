@@ -12,6 +12,11 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json())
 
+//!TESTING
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!' });
+});
+
 //! LOGIN 
 
 // const jwtSecret = process.env.JWT_SECRET
@@ -138,10 +143,14 @@ app.get("/details/Warner530", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-// const PORT = 8000
 
 initServices().then(() => {
-  console.log("Services Initialized")  
+  console.log("Services Initialized")
+  
+  //!TESTING
+  console.log(serviceArr)
+  console.log()
+
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }).catch((error) => {
     console.error("Failied to Init Services:", error)

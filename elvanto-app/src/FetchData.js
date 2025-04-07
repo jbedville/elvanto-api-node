@@ -1,4 +1,5 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+import { useEffect } from "react";
 
 let m1Group, w1Group, r1Group, m2Group, w2Group
 let date
@@ -29,32 +30,32 @@ function getNextMonday() {
 
 //! Function to Fetch the data from the backend server
 async function fetchData() {
-    const rebuild = (obj) => 
-        obj ?
-        new ServiceGroup(obj.locationName, obj.date, obj.volunteers, obj.songs)
-        : undefined
+//     const rebuild = (obj) => 
+//         obj ?
+//         new ServiceGroup(obj.locationName, obj.date, obj.volunteers, obj.songs)
+//         : undefined
      
 
-    const cached = localStorage.getItem(CACHE_KEY);
-    if (cached) {
-        try{
-            const { expires, data } = JSON.parse(cached)
-            if (Date.now() < expires) {
-            console.log('Loaded from cache')
+//     const cached = localStorage.getItem(CACHE_KEY);
+//     if (cached) {
+//         try{
+//             const { expires, data } = JSON.parse(cached)
+//             if (Date.now() < expires) {
+//             console.log('Loaded from cache')
             
-            m1Group = rebuild(data.m1Group);
-            w1Group = rebuild(data.w1Group);
-            r1Group = rebuild(data.r1Group);
-            m2Group = rebuild(data.m2Group);
-            w2Group = rebuild(data.w2Group);
+//             m1Group = rebuild(data.m1Group);
+//             w1Group = rebuild(data.w1Group);
+//             r1Group = rebuild(data.r1Group);
+//             m2Group = rebuild(data.m2Group);
+//             w2Group = rebuild(data.w2Group);
 
-            return
-            }
-        } catch (error) {
-            console.error('Cache parse error, clearing cache', error)
-            localStorage.removeItem(CACHE_KEY)
-    }
-} else
+//             return
+//             }
+//         } catch (error) {
+//             console.error('Cache parse error, clearing cache', error)
+//             localStorage.removeItem(CACHE_KEY)
+//     }
+// } else
 
     try {
         const [morayfield830, warner930, redcliffe930, morayfield1030, warner530] = await Promise.all([
@@ -110,18 +111,18 @@ async function fetchData() {
     m2Group = getVolunteers(morayfield1030, "Morayfield 10:30")
     w2Group = getVolunteers(warner530, "Warner 5:30")
  
-    const data = {
-        m1Group: {...m1Group},
-        w1Group: {...w1Group},
-        r1Group: {...r1Group},
-        m2Group: {...m2Group},
-        w2Group: {...w2Group}
-    }
+    // const data = {
+    //     m1Group: {...m1Group},
+    //     w1Group: {...w1Group},
+    //     r1Group: {...r1Group},
+    //     m2Group: {...m2Group},
+    //     w2Group: {...w2Group}
+    // }
     
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
-        expires: getNextMonday(),
-        data
-    }))
+    // localStorage.setItem(CACHE_KEY, JSON.stringify({
+    //     expires: getNextMonday(),
+    //     data
+    // }))
 
     console.log('Fetched from API and cached')
 
