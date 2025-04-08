@@ -25,6 +25,10 @@
   animation: spin 1.5s linear infinite;
 }
 
+.refresh-loader-circle {
+  animation: spin 1.5s linear infinite;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -77,6 +81,11 @@
   box-shadow: 0 10px 15px #0000005c;
   width: 100%;
   box-sizing: border-box;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
 }
 
 .nav button {

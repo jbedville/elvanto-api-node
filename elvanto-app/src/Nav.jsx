@@ -32,7 +32,7 @@ function Nav({ setServices, services }) {
             <button onClick={refreshServices} disabled={isUpdating}>
                 {isUpdating ? "Refreshing..." : "Refresh Services"}
                 </button>
-                {isUpdating && <span><Loader className="loader-circle"/></span>}
+                {isUpdating && <span><Loader className="refresh-loader-circle"/></span>}
                 {updateMessage && <span className={`update-message ${isFading ? "fade-out" : ""}`}>{updateMessage}</span>}
     
         </div>
