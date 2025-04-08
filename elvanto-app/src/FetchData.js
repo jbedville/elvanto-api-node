@@ -3,7 +3,7 @@ console.log(apiUrl)
 
 let m1Group, w1Group, r1Group, m2Group, w2Group
 let date
-const CACHE_KEY = "serviceCache"
+export const CACHE_KEY = "serviceCache"
 
 class ServiceGroup {
     constructor(locationName, date, volunteers, songs) {
@@ -29,7 +29,7 @@ function getNextMonday() {
 }
 
 //! Function to Fetch the data from the backend server
-async function fetchData() {
+export async function fetchData() {
     const rebuild = (obj) => 
         obj ?
         new ServiceGroup(obj.locationName, obj.date, obj.volunteers, obj.songs)
@@ -126,12 +126,12 @@ async function fetchData() {
     }
 }
 
-async function main() {
-    await fetchData();
-    console.log(m1Group)
-}
+// async function main() {
+//     await fetchData();
+//     console.log(m1Group)
+// }
 
-main()
+// main()
 
 export async function getServiceGroups() {
     await fetchData();

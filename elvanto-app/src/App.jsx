@@ -2,6 +2,7 @@ import './App.css'
 import Service from './Service'
 import Login from './Login'
 import Register from './Register'
+import Nav from './Nav'
 import { getServiceGroups } from './FetchData'
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
@@ -26,13 +27,17 @@ if (!services) return (
 )
 
   return (
-    <div className="service-container">
-      <Service service={services.m1Group} />
-      <Service service={services.r1Group} />
-      <Service service={services.w1Group} />
-      <Service service={services.m2Group} />
-      <Service service={services.w2Group} />
+    <div>
+      <Nav setServices={setServices} services={services}/>
+      <div className="service-container">
+        <Service service={services.m1Group} />
+        <Service service={services.r1Group} />
+        <Service service={services.w1Group} />
+        <Service service={services.m2Group} />
+        <Service service={services.w2Group} />
     </div>
+    </div>
+    
   )
 }
 
