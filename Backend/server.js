@@ -110,6 +110,7 @@ app.get("/details/Redcliffe930", async (req, res) => {
     }
     await locationDetails(serviceArr[2]);
     res.json(locationObject);
+    console.log("Got Redcliffe")
   } catch (error) {
     console.error("Error fetching location details: ", error);
     res.status(500).json({ error: "failed to fetch location details" });

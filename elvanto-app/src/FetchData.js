@@ -41,6 +41,8 @@ export async function fetchData() {
     if (cached) {
         try{
             const { expires, data } = JSON.parse(cached)
+            console.log("Cache expires at:", new Date(expires))
+            console.log("Current time:", new Date())
             if (Date.now() < expires) {
             console.log('Loaded from cache')
             
@@ -51,6 +53,9 @@ export async function fetchData() {
             w2Group = rebuild(data.w2Group);
 
             cachedValid = true;
+            } else {
+                console.log("Cache expired, clearing cache")
+                localStorage.removeItem(CACHE_KEY)
             }
         } catch (error) {
             console.error('Cache parse error, clearing cache', error)
