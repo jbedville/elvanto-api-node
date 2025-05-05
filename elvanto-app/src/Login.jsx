@@ -1,43 +1,50 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react"
+import axios from "axios"
 
-function Login( onLogin) {
-    const [userName, setUserName] = useState('');
+export default function Login() {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
 
-    const handleLogin = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            const res = await fetch("http://localhost:8000/api/login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userName, password })
-            });
-            
-        if (!res.ok) {
-            const errorData = await res.json();
-            throw new Error(errorData.error || 'Something went wrong')
-        }
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/auth/login`,
+                { email, password }
+            );
 
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        onLogin();
-        navigate('/services')
-        alert('Logged in!');
+            localStorage.setItem("token", response.data.token)
+            window.location.href = "/"
         } catch (err) {
-            alert('Login failed: ', err.message)
+            alert("Login failed. Check your email and password.")
         }
-    } 
+    };
 
     return (
         <div>
-            <input placeholder='Username' value={userName} onChange={e => setUserName(e.target.value)} />
-            <input placeholder='Password' type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            <button onClick={handleLogin}>Login</button>
+            <h2>Login</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                /><br/>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                /><br/>
+                <button type="submit">Login</button>
+            </form>
         </div>
     )
 }
 
-export default Login
+// const response = await axios.post(
+//     `${import.meta.env.VITE_API_URL}/auth/login`,
+//     { email, password }
+//   );
+  
+//   localStorage.setItem("token", response.data.token);
+//   window.location.href = "/";

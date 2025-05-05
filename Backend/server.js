@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config();
 const client = require("./lib/client.js");
-// const jwt = require('jsonwebtoken')
-// const bcrypt = require ('bcrypt')
+const authMiddleware = require('./middleware/auth');
+
 
 const app = express();
 app.use((req, res, next) => {
@@ -18,29 +19,13 @@ app.get('/api/test', (req, res) => {
 });
 
 //! LOGIN 
+// Routes
+const authRoutes = require('./routes/auth')
+app.use('/auth', authRoutes)
 
-// const jwtSecret = process.env.JWT_SECRET
-
-// const users = []
-
-// app.post('/register', async (req, res) => {
-//     const { userName, password } = req.body;
-//     const hashed = await bcrypt.hash(password, 10)
-//     users.push({ userName, password: hashed})
-//     res.send({ message: 'User Registered'})
-// })
-
-// app.post('/login', async (req, res) => {
-//     const { userName, password } = req.body;
-//     const user = users.find(u => u.userName === userName);
-//     if (!user) return res.status(401).send({ error:'User not found' })
-
-//     const valid = await bcrypt.compare(password, user.password);
-//     if (!valid) return res.status(401).send({ error:"Invalid password" })
-
-//     const token = jwt.sign({ userName }, jwtSecret, { expiresIn: '1h' })
-//     res.send({token})
-// })
+app.get('/protected', authMiddleware, (req, res) => {
+  res.json({ message: `You're logged in as ${req.user.email}`})
+})
 
 //! SERVICES API 
 

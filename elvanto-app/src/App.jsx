@@ -8,24 +8,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { LoaderCircle, Loader, LoaderPinwheel } from 'lucide-react'
 
-function App() {
-  const [services, setServices] = useState(null);
-
-  useEffect(() => {
-    async function fetchServices() {
-        const data = await getServiceGroups();
-        setServices(data)
-    }
-    fetchServices()
-}, [])
-
-if (!services) return (
-  <div className='loading'>
-    <Loader size={30} className='loader-circle'/>
-    <h2>Loading</h2>
-  </div> 
-)
-
+function Services({services, setServices}) {
   return (
     <div>
       <Nav setServices={setServices} services={services}/>
@@ -37,6 +20,45 @@ if (!services) return (
         <Service service={services.w2Group} />
     </div>
     </div>
+  )
+}
+
+function App() {
+  const [services, setServices] = useState(null);
+  const token = localStorage.getItem('token')
+
+  useEffect(() => {
+    async function fetchServices() {
+        const data = await getServiceGroups();
+        setServices(data)
+    }
+    if (token) fetchServices()
+}, [token])
+
+if (token && !services) return (
+  <div className='loading'>
+    <Loader size={30} className='loader-circle'/>
+    <h2>Loading</h2>
+  </div> 
+)
+
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            token ? (
+              <Services services={services} setServices={setServices} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route path='/login' element={<Login />} />
+        <Route path='register' element={<Register />} />
+      </Routes>
+    </Router>
     
   )
 }
